@@ -6,7 +6,24 @@ const searchBtn = document.getElementById("search-button");
 const searchInput = document.getElementById("searchInput");
 const modalContent = document.querySelector(".modal-content");
 const modalDialog = document.querySelector(".modal-dialog");
-const saveBtn = document.getElementById("saveBtn");
+// const newSaveBtn = document.getElementById("saveBtn");
+
+
+// Yeni Save button'u oluştur ve olay dinleyicisini ekle
+const newSaveBtn = document.createElement("button");
+newSaveBtn.id = "saveBtn";
+newSaveBtn.className = "btn btn-primary";
+newSaveBtn.innerText = "Save";
+
+// Yeni Save button'u oluşturan fonksiyon
+function createSaveButton() {
+  // Footer'a ekle
+  const modalFooter = document.querySelector(".modal-footer");
+  modalFooter.appendChild(newSaveBtn);
+  modalDialog.appendChild(modalContent);
+}
+
+
 
 
 // https://api.coinranking.com/v2/search-suggestions?query=avax
@@ -49,13 +66,13 @@ function showCoins(data) {
     const tr = document.createElement("tr");
     tr.innerHTML = `
             <td class="fw-bold">${name} </td>
-            <td>${rank} </td>
-            <td style="color:${color}; font-weight:800">${symbol} </td>
-            <td>
+            <td "text-center">${rank} </td>
+            <td style=""text-center" color:${color}; font-weight:800">${symbol} </td>
+            <td "text-center">
                 <img src="${iconUrl}" alt="${name} Icon" width="30px" />
             </td>
-            <td>${change} </td>
-            <td>
+            <td "text-center">${change} </td>
+            <td class="text-center">
                     <a href="${coinrankingUrl}" target="_blank">
                         <i class="fa-solid fa-chart-line" style="color: #4d8f5a;">
                  
@@ -99,27 +116,15 @@ const showModal = (coins) => {
                                         </td></tr>
                                         <table>
                             </div>
+                            <div class="modal-footer">
+                            </div>
                             `;
-                            // Save button'u seç
-      const saveBtnInModal = document.getElementById("saveBtnInModal");
+                         // Yeni Save button'u oluştur ve olay dinleyicisini ekle
 
-      // Eğer Save button'u zaten varsa kaldır
-      if (saveBtnInModal) {
-        saveBtnInModal.removeEventListener("click", handleSaveClick);
-        saveBtnInModal.parentNode.removeChild(saveBtnInModal);
-      }
-
-      // Yeni Save button'u oluştur ve olay dinleyicisini ekle
-      const newSaveBtn = document.createElement("button");
-      newSaveBtn.id = "saveBtnInModal";
-      newSaveBtn.className = "btn btn-primary";
-      newSaveBtn.innerText = "Kaydet";
-      newSaveBtn.addEventListener("click", handleSaveClick);
-
-      // Footer'a ekle
-      const modalFooter = document.querySelector(".modal-footer");
-      modalFooter.appendChild(newSaveBtn);
-      modalDialog.appendChild(modalContent);
+                            const modalFooter = document.querySelector(".modal-footer");
+                            modalFooter.appendChild(newSaveBtn);
+                            modalDialog.appendChild(modalContent);
+                        
     }
   });
 };
@@ -130,7 +135,7 @@ searchBtn.addEventListener("click", () => {
   });
 
 
-saveBtn.addEventListener("click", () =>{
+  newSaveBtn.addEventListener("click", () =>{
     console.log("Save button is clicked");
     let localCoins = localStorage.getItem("coins");
   
@@ -145,3 +150,5 @@ saveBtn.addEventListener("click", () =>{
       console.log("No 'coins' key found in localStorage");
     }
 })
+
+createSaveButton();
