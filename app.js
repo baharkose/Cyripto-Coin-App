@@ -6,6 +6,9 @@ const searchBtn = document.getElementById("search-button");
 const searchInput = document.getElementById("searchInput");
 const modalContent = document.querySelector(".modal-content");
 const modalDialog = document.querySelector(".modal-dialog");
+const savedCyrptoBtn = document.getElementById("savedCyrptoBtn");
+const savedBody = document.querySelector(".savedBody");
+
 // const newSaveBtn = document.getElementById("saveBtn");
 
 
@@ -99,15 +102,27 @@ const showModal = (coins) => {
                               <h1 class="modal-title fs-5" id="staticBackdropLabel">${name}</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body d-flex align-items-center justify-content-center flex-column">
                                         <table>
-                                        <tr><td>${rank} </td></tr>
-                                        <tr><td style="color:${color}; font-weight:800">${symbol} </td></tr>
-                                        <tr><td>
-                                            <img src="${iconUrl}" alt="${name} Icon" width="30px" />
-                                        </td></tr>
-                                        <tr><td>${change} </td></tr>
-                                        <tr><td>
+                                        <tr><td class="fw-bold; font-weight:800">Rank: </td>
+                                            <td>${rank} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold; font-weight:800">Symbol: </td>
+                                            <td style="color:${color}; font-weight:800">${symbol}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold; font-weight:800">Link: </td>
+                                            <td>
+                                                <img src="${iconUrl}" alt="${name} Icon" width="30px" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold; font-weight:800">Change: </td>
+                                            <td>${change} </td></tr>
+                                        <tr>
+                                        <td class="fw-bold; font-weight:800">Ranking Url: </td>
+                                                <td>
                                                 <a href="${coinrankingUrl}" target="_blank">
                                                     <i class="fa-solid fa-chart-line" style="color: #4d8f5a;">
                                             
@@ -117,6 +132,7 @@ const showModal = (coins) => {
                                         <table>
                             </div>
                             <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                             `;
                          // Yeni Save button'u oluştur ve olay dinleyicisini ekle
@@ -129,11 +145,9 @@ const showModal = (coins) => {
   });
 };
 
-
 searchBtn.addEventListener("click", () => {
     showModal(getCoins);
   });
-
 
   newSaveBtn.addEventListener("click", () =>{
     console.log("Save button is clicked");
@@ -152,3 +166,30 @@ searchBtn.addEventListener("click", () => {
 })
 
 createSaveButton();
+
+savedCyrptoBtn.addEventListener("click", () => {
+    let localCoins = JSON.parse(localStorage.getItem("coins"));
+    
+    console.log(localCoins);
+    localCoins.forEach(coin =>{
+        const {name, rank, symbol, color, iconUrl, change, coinrankingUrl} = coin
+            let trNew = document.createElement("tr")
+                trNew.innerHTML = `
+                                        <td>${name}</td>
+                                        <td>${rank}</td>
+                                        <td style="color:${color}; font-weight:800">${symbol}</td>
+                                        <td><img src="${iconUrl}" alt="${name} Icon" width="30px" /></td>
+                                        <td>${change}</td>
+                                        <td><a href="${coinrankingUrl}" target="_blank">
+                                        <i class="fa-solid fa-chart-line" style="color: #4d8f5a;">
+                                
+                                        </i>
+                                    </a> </td>
+
+                                        `;
+                savedBody.appendChild(trNew)
+
+    })
+    
+
+})

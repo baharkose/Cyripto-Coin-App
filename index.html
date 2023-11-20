@@ -26,10 +26,10 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <nav class="container navbar bg-body-tertiary">
+    <nav class="container navbar bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="" alt="Bootstrap" width="30" height="24" />
+          <img src="./logo.svg" alt="Bootstrap" width="40" height="40" />
         </a>
         <form class="d-flex me-5" role="search">
           <input
@@ -39,7 +39,7 @@
             placeholder="Search"
             aria-label="Search"
           />
-          <button id="search-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Search</button>
+          <button id="search-button" class="btn bg-danger text-white fw-bold" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Search</button>
         </form>
 
         <!-- Modal -->
@@ -54,11 +54,24 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              ...
+                              <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr class="align-items-center justify-content-center">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary"  id="saveBtn">Kaydet</button>
+                              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary"  id="saveBtn">Kaydet</button> -->
                             </div>
                           </div>
                         </div>
@@ -80,51 +93,75 @@
             <th class="text-danger" scope="col">Coin Detail</th>
           </tr>
         </thead>
-
         <tbody>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
           </tr>
         </tbody>
       </table>
-      <!--  CANVAS -->
-      <button
-        class="btn btn-primary"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight"
-        aria-controls="offcanvasRight"
-      >
-        Saved Cyriptos
-      </button>
-
-      <div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasRight"
-        aria-labelledby="offcanvasRightLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasRightLabel">
-            Saved Cyriptos
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="offcanvas-body">...</div>
-      </div>
-
-      <!-- CANVAS -->
+     
     </div>
+     <!--  CANVAS -->
+     <div class="canvas-btn">
+     <button
+     class="btn btn-primary fw-bold"
+     id="savedCyrptoBtn"
+     type="button"
+     data-bs-toggle="offcanvas"
+     data-bs-target="#offcanvasRight"
+     aria-controls="offcanvasRight"
+   >
+     SAVED COINS
+   </button>
+  </div>
+   <div
+     class="offcanvas offcanvas-end"
+     tabindex="-1"
+     id="offcanvasRight"
+     aria-labelledby="offcanvasRightLabel"
+   >
+     <div class="offcanvas-header">
+       <h5 class="offcanvas-title text-danger text-center" id="offcanvasRightLabel">
+         Saved Cyrptos
+       </h5>
+       <button
+         type="button"
+         class="btn-close"
+         data-bs-dismiss="offcanvas"
+         aria-label="Close"
+       ></button>
+     </div>
+     <div class="offcanvas-body">
+       <table class="table">
+         <thead>
+           <tr>
+             <th class="text-danger" scope="col">Name</th>
+             <th class="text-danger" scope="col">Rank</th>
+             <th class="text-danger" scope="col">Symbol</th>
+             <th class="text-danger" scope="col">Icon</th>
+             <th class="text-danger" scope="col">Change</th>
+             <th class="text-danger" scope="col">Coin Detail</th>
+           </tr>
+         </thead>
+ 
+         <tbody class="savedBody">
+           <tr>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+         </tbody>
+       </table>
+
+
+
+
+     </div>
+   </div>
+
+   <!-- CANVAS -->
     <script src="app.js"></script>
   </body>
 </html>
