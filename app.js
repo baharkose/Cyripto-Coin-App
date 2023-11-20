@@ -10,6 +10,11 @@ const savedCyrptoBtn = document.getElementById("savedCyrptoBtn");
 const savedBody = document.querySelector(".savedBody");
 
 // const newSaveBtn = document.getElementById("saveBtn");
+// create new delete btn
+const newDeleteBtn = document.createElement("button")
+newDeleteBtn.id = "deleteBtn";
+newDeleteBtn.className = "btn btn-primary";
+newDeleteBtn.innerText = "Delete All";
 
 
 // Yeni Save button'u oluştur ve olay dinleyicisini ekle
@@ -90,63 +95,84 @@ let setLocalCoins =[]
 handleApiRequests();
 
 const showModal = (coins) => {
-  coins.forEach((element) => {
-    const { symbol, name, color, coinrankingUrl, iconUrl, rank, change } =
-      element;
-        
-    if (name === searchInput.value) {
-        setLocalCoins.push(element)
-        localStorage.setItem("coins",JSON.stringify(setLocalCoins))
-      modalContent.innerHTML = `
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="staticBackdropLabel">${name}</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body d-flex align-items-center justify-content-center flex-column">
-                                        <table>
-                                        <tr><td class="fw-bold; font-weight:800">Rank: </td>
-                                            <td>${rank} </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold; font-weight:800">Symbol: </td>
-                                            <td style="color:${color}; font-weight:800">${symbol}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold; font-weight:800">Link: </td>
-                                            <td>
-                                                <img src="${iconUrl}" alt="${name} Icon" width="30px" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold; font-weight:800">Change: </td>
-                                            <td>${change} </td></tr>
-                                        <tr>
-                                        <td class="fw-bold; font-weight:800">Ranking Url: </td>
-                                                <td>
-                                                <a href="${coinrankingUrl}" target="_blank">
-                                                    <i class="fa-solid fa-chart-line" style="color: #4d8f5a;">
-                                            
-                                                    </i>
-                                                </a> 
-                                        </td></tr>
-                                        <table>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                            `;
-                         // Yeni Save button'u oluştur ve olay dinleyicisini ekle
 
-                            const modalFooter = document.querySelector(".modal-footer");
-                            modalFooter.appendChild(newSaveBtn);
-                            modalDialog.appendChild(modalContent);
-                        
+  if (!searchInput.value) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...Please type a text!",
+    });
     }
-  });
+    else{
+        coins.forEach((element) => {
+        const { symbol, name, color, coinrankingUrl, iconUrl, rank, change } = element;
+              
+          if (name === searchInput.value) {
+              setLocalCoins.push(element)
+              localStorage.setItem("coins",JSON.stringify(setLocalCoins))
+            modalContent.innerHTML = `
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">${name}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body d-flex align-items-center justify-content-center flex-column">
+                                              <table>
+                                              <tr><td class="fw-bold; font-weight:800">Rank: </td>
+                                                  <td>${rank} </td>
+                                              </tr>
+                                              <tr>
+                                                  <td class="fw-bold; font-weight:800">Symbol: </td>
+                                                  <td style="color:${color}; font-weight:800">${symbol}</td>
+                                              </tr>
+                                              <tr>
+                                                  <td class="fw-bold; font-weight:800">Link: </td>
+                                                  <td>
+                                                      <img src="${iconUrl}" alt="${name} Icon" width="30px" />
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td class="fw-bold; font-weight:800">Change: </td>
+                                                  <td>${change} </td></tr>
+                                              <tr>
+                                              <td class="fw-bold; font-weight:800">Ranking Url: </td>
+                                                      <td>
+                                                      <a href="${coinrankingUrl}" target="_blank">
+                                                          <i class="fa-solid fa-chart-line" style="color: #4d8f5a;">
+                                                  
+                                                          </i>
+                                                      </a> 
+                                              </td></tr>
+                                              <table>
+                                  </div>
+                                  <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                  `;
+                              // Yeni Save button'u oluştur ve olay dinleyicisini ekle
+
+                                  const modalFooter = document.querySelector(".modal-footer");
+                                  modalFooter.appendChild(newSaveBtn);
+                                  modalDialog.appendChild(modalContent);
+                              
+          }
+        });
+
+
+
+    }
+
 };
 
 searchBtn.addEventListener("click", () => {
-    showModal(getCoins);
+  console.log("is clicked");
+    if(!searchInput.value){
+      Swal.fire({
+        icon: "error",
+        title: "Oops...Please type a text!",
+      });
+    }
+    else{
+      showModal(getCoins);
+    }
   });
 
   newSaveBtn.addEventListener("click", () =>{
@@ -193,3 +219,7 @@ savedCyrptoBtn.addEventListener("click", () => {
     
 
 })
+
+window.onload = ()=>{
+  searchInput.value="";
+}
