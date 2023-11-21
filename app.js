@@ -1,5 +1,5 @@
-//? MAIN.JS
-console.log("***** main *****");
+//? APP.JS
+console.log("***** app *****");
 
 const tBody = document.querySelector("tBody");
 const searchBtn = document.getElementById("search-button");
@@ -9,13 +9,14 @@ const modalDialog = document.querySelector(".modal-dialog");
 const savedCyrptoBtn = document.getElementById("savedCyrptoBtn");
 const savedBody = document.querySelector(".savedBody");
 
+const myModal = new bootstrap.Modal('#staticBackdrop')
+// myModal.hide();
 // const newSaveBtn = document.getElementById("saveBtn");
 // create new delete btn
 const newDeleteBtn = document.createElement("button")
 newDeleteBtn.id = "deleteBtn";
 newDeleteBtn.className = "btn btn-primary";
 newDeleteBtn.innerText = "Delete All";
-
 
 // Yeni Save button'u oluştur ve olay dinleyicisini ekle
 const newSaveBtn = document.createElement("button");
@@ -30,9 +31,6 @@ function createSaveButton() {
   modalFooter.appendChild(newSaveBtn);
   modalDialog.appendChild(modalContent);
 }
-
-
-
 
 // https://api.coinranking.com/v2/search-suggestions?query=avax
 
@@ -95,76 +93,90 @@ let setLocalCoins =[]
 handleApiRequests();
 
 const showModal = (coins) => {
-
   if (!searchInput.value) {
+    myModal.hide();
     Swal.fire({
       icon: "error",
       title: "Oops...Please type a text!",
     });
-    }
-    else{
-        coins.forEach((element) => {
-        const { symbol, name, color, coinrankingUrl, iconUrl, rank, change } = element;
-              
-          if (name === searchInput.value) {
-              setLocalCoins.push(element)
-              localStorage.setItem("coins",JSON.stringify(setLocalCoins))
-            modalContent.innerHTML = `
-                                  <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">${name}</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body d-flex align-items-center justify-content-center flex-column">
-                                              <table>
-                                              <tr><td class="fw-bold; font-weight:800">Rank: </td>
-                                                  <td>${rank} </td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="fw-bold; font-weight:800">Symbol: </td>
-                                                  <td style="color:${color}; font-weight:800">${symbol}</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="fw-bold; font-weight:800">Link: </td>
-                                                  <td>
-                                                      <img src="${iconUrl}" alt="${name} Icon" width="30px" />
-                                                  </td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="fw-bold; font-weight:800">Change: </td>
-                                                  <td>${change} </td></tr>
-                                              <tr>
-                                              <td class="fw-bold; font-weight:800">Ranking Url: </td>
-                                                      <td>
-                                                      <a href="${coinrankingUrl}" target="_blank">
-                                                          <i class="fa-solid fa-chart-line" style="color: #4d8f5a;">
-                                                  
-                                                          </i>
-                                                      </a> 
-                                              </td></tr>
-                                              <table>
-                                  </div>
-                                  <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  </div>
-                                  `;
-                              // Yeni Save button'u oluştur ve olay dinleyicisini ekle
+    return; // Add a return statement to exit the function if input is empty
+  }
 
-                                  const modalFooter = document.querySelector(".modal-footer");
-                                  modalFooter.appendChild(newSaveBtn);
-                                  modalDialog.appendChild(modalContent);
-                              
-          }
-        });
+  const foundCoins = coins.filter((element) => element.name === searchInput.value);
+
+  if (foundCoins.length > 0) {
+    const {
+      symbol,
+      name,
+      color,
+      coinrankingUrl,
+      iconUrl,
+      rank,
+      change,
+    } = foundCoins[0];
+    setLocalCoins.push(foundCoins[0]);
+    localStorage.setItem("coins", JSON.stringify(setLocalCoins));
+
+    modalContent.innerHTML = `
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">${name}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex align-items-center justify-content-center flex-column">
+        <table>
+          <tr>
+            <td class="fw-bold; font-weight:800">Rank: </td>
+            <td>${rank} </td>
+          </tr>
+          <tr>
+            <td class="fw-bold; font-weight:800">Symbol: </td>
+            <td style="color:${color}; font-weight:800">${symbol}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold; font-weight:800">Link: </td>
+            <td>
+              <img src="${iconUrl}" alt="${name} Icon" width="30px" />
+            </td>
+          </tr>
+          <tr>
+            <td class="fw-bold; font-weight:800">Change: </td>
+            <td>${change} </td>
+          </tr>
+          <tr>
+            <td class="fw-bold; font-weight:800">Ranking Url: </td>
+            <td>
+              <a href="${coinrankingUrl}" target="_blank">
+                <i class="fa-solid fa-chart-line" style="color: #4d8f5a;"></i>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    `;
+     // Explicitly hide the modal
+     myModal.hide();
+     // Show the modal again
+     myModal.show();
 
 
 
-    }
-
+  } else {
+    myModal.hide();
+    Swal.fire({
+      icon: "error",
+      title: "Oops...Coin not found!",
+    });
+  }
 };
+
 
 searchBtn.addEventListener("click", () => {
   console.log("is clicked");
     if(!searchInput.value){
+      myModal.hide();
       Swal.fire({
         icon: "error",
         title: "Oops...Please type a text!",
