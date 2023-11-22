@@ -1,9 +1,6 @@
 # Cyrpto-Coin-App
 This is a tracking web page,  for cryptocurrency 
 
-
-
-<br><br>
 <p align="center"><h1><a href="https://baharkose.github.io/Cyrpto-Coin-App/"> LIVE </a> </h1></p>
 
 <p> Info: In this project, crypto currency information was retrieved using API.
