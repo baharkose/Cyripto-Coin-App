@@ -1,8 +1,14 @@
 # Cyrpto-Coin-App
 This is a tracking web page,  for cryptocurrency 
+
+
+
 <br><br>
 <p align="center"><h1><a href="https://baharkose.github.io/Cyrpto-Coin-App/"> LIVE </a> </h1></p>
 
+<p> Info: In this project, crypto currency information was retrieved using API.
+Local storage feature has been added for monitoring without internet.
+Additionally, swal alert, modal and off canvas were used in the project for readability and usability.</p>
 <br><br>
 
 ![image](https://github.com/baharkose/Cyrpto-Coin-App/assets/110201916/3dee0990-14fa-4e3d-9007-a0bd62c77ed8)
