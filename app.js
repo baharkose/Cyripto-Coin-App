@@ -19,17 +19,10 @@ newDeleteBtn.className = "btn btn-primary";
 newDeleteBtn.innerText = "Delete All";
 
 
-function createSaveButton() {
-  // Yeni Save button'u oluştur ve olay dinleyicisini ekle
-  const newSaveBtn = document.createElement("button");
 
-// Yeni Save button'u oluşturan fonksiyon
-  newSaveBtn.id = "saveBtn";
-  newSaveBtn.className = "btn btn-primary";
-  newSaveBtn.innerText = "Save";
 
-  return newSaveBtn;
-}
+
+
 
 // https://api.coinranking.com/v2/search-suggestions?query=avax
 
@@ -119,7 +112,7 @@ const showModal = (coins) => {
     } = foundCoins[0];
     setLocalCoins.push(foundCoins[0]);
 
-    const newSaveBtn = createSaveButton()
+
 
     modalContent.innerHTML = `
               <div class="modal-header">
@@ -157,16 +150,37 @@ const showModal = (coins) => {
               </table>
             </div>
             <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary"  id="saveBtn">Kaydet</button>
             
-            
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
     `;
 
-            modalFooter.appendChild(newSaveBtn)
-            modalDialog.appendChild(modalContent)
-          // Footer'a ekle
-        
+
+
+            localStorage.setItem("coins", JSON.stringify(setLocalCoins));
+
+              // Yeni Save button'u oluşturan fonksiyon
+              const nSaveBtn = document.getElementById("saveBtn")
+              nSaveBtn.className = "btn btn-primary";
+              nSaveBtn.innerText = "Save";
+
+              nSaveBtn.addEventListener("click", () =>{
+              console.log("Save button is clicked");
+              let localCoins = localStorage.getItem("coins");
+
+              if (localCoins) {
+                try {
+                  const parsedCoins = JSON.parse(localCoins);
+                  console.log("Parsed LocalCoins:", parsedCoins);
+                } catch (error) {
+                  console.error("Error parsing JSON:", error);
+                }
+              } else {
+                console.log("No 'coins' key found in localStorage");
+              }
+              })
+
 
     myModal.show();  // Show the modal after setting its content
   } else {
@@ -177,7 +191,10 @@ const showModal = (coins) => {
   }
 };
 
-localStorage.setItem("coins", JSON.stringify(setLocalCoins));
+
+
+
+
 
 searchBtn.addEventListener("click", () => {
   console.log("is clicked");
@@ -193,21 +210,6 @@ searchBtn.addEventListener("click", () => {
     }
   });
 
-  newSaveBtn.addEventListener("click", () =>{
-    console.log("Save button is clicked");
-    let localCoins = localStorage.getItem("coins");
-  
-    if (localCoins) {
-      try {
-        const parsedCoins = JSON.parse(localCoins);
-        console.log("Parsed LocalCoins:", parsedCoins);
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-      }
-    } else {
-      console.log("No 'coins' key found in localStorage");
-    }
-})
 
 
 savedCyrptoBtn.addEventListener("click", () => {
