@@ -3,7 +3,7 @@ This is a tracking web page,  for cryptocurrency
 <br><br>
 <p align="center"><h1> LIVE </h1></p>
 
-<br><br><br><br><br><br><br><br>
+<br><br>
 
 ![image](https://github.com/baharkose/Cyrpto-Coin-App/assets/110201916/3dee0990-14fa-4e3d-9007-a0bd62c77ed8)
 ![image](https://github.com/baharkose/Cyrpto-Coin-App/assets/110201916/06f44ba2-0353-48d6-8168-e94a7e70787b)
